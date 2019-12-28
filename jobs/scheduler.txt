@@ -1,0 +1,17 @@
+SHELL=/bin/bash
+BASH_ENV=/wp-cron/jobs.env
+
+# update docker host
+*/3 * * * * /wp-cron/jobs/scripts/apt.sh >> /var/log/cron/apt.log 2>&1
+
+# cleanup after docker leftovers
+#* * * * * /wp-cron/jobs/scripts/cleanup.sh >> /var/log/cron/cleanup.log 2>&1
+
+# backup application data
+#* * * * * /wp-cron/jobs/scripts/wp-backup.sh >> /var/log/cron/wp-backup.log 2>&1
+
+# backup database to object store
+#* * * * * /wp-cron/jobs/scripts/db-backup.sh >> /var/log/cron/db-backup.log 2>&1
+
+# renew let'sencrypt certificates
+#* * * * * /wp-cron/jobs/scripts/renew-certs.sh >> /var/log/cron/renew-certs.log 2>&1
