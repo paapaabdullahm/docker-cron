@@ -8,9 +8,9 @@ The running container accepts the following environmental variables for establis
 
 <table width="100%">
     <tr>
-        <th width="25%" style="text-align: left">Environment Var</th>
-        <th width="40%" style="text-align: left">Description</th>
-        <th width="35%" style="text-align: left">Example Value</th>
+        <th width="25%">Environment Var</th>
+        <th width="40%">Description</th>
+        <th width="35%">Example Value</th>
     </tr>
     <tr>
         <td width="25%">WPCRON_SSH_HANDLE</td>
