@@ -109,9 +109,9 @@ bind mount the volume inside the wp-cron service
 
 ```
 volume:
-type: bind
-source: ssh-keys
-target: /wp-cron/ssh
+  type: bind
+  source: ssh-keys
+  target: /wp-cron/ssh
 ```
 
 let your wp-cron container use this to run jobs
