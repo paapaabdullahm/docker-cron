@@ -186,7 +186,7 @@ ssh -i /wpcron/ssh/id-rsa \
     wpcron@docker-dev.example.com
 ```
 
-## Complete Docker Compose Example
+## Docker Compose Example
 
 ```
 version: '3.7'
