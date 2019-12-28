@@ -8,9 +8,9 @@ The running container accepts the following environmental variables for establis
 
 <table width="100%">
     <tr>
-        <th width="25%">Environment Var</th>
+        <th width="25%">Variable</th>
         <th width="40%">Description</th>
-        <th width="35%">Example Value</th>
+        <th width="35%">Example</th>
     </tr>
     <tr>
         <td width="25%">WPCRON_SSH_HANDLE</td>
@@ -19,7 +19,7 @@ The running container accepts the following environmental variables for establis
     </tr>
     <tr>
         <td width="25%">WPCRON_SSH_PRIVKEY</td>
-        <td width="40%">your private rsa key path</td>
+        <td width="40%">your private identity file</td>
         <td width="35%">/wp-cron/ssh/id-rsa</td>
     </tr>
     <tr>
