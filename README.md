@@ -4,7 +4,7 @@ WP Cron is a set of cron jobs for automating routine SysAdmin tasks for a docker
 
 ## Environment Variables
 
-The running container accepts the following environmental variables for establishing ssh connections, connecting to databases and s3 compatible object storage:
+The running container accepts the following environmental variables for establishing ssh connections, connecting to databases and s3 compatible object storage endpoints to execute backup and other admin related jobs:
 
 <table width="100%">
     <tr>
