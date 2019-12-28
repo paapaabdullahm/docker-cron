@@ -64,7 +64,7 @@ The running container accepts the following environmental variables for establis
     </tr>
 </table>
 
-## Requirements
+## How to Setup
 
 ### Create a user for executing remote jobs
 > Here, remote can be the same host you are running the wp-cron service on or any other server.
