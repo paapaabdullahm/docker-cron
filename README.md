@@ -14,11 +14,11 @@ The running container accepts the following environmental variables for establis
     </tr>
     <tr>
         <td width="25%">WPCRON_SSH_HANDLE</td>
-        <td width="40%">The SSH connection string</td>
+        <td width="40%">The SSH connection handle</td>
         <td width="35%">wpcron@example.com</td>
     </tr>
     <tr>
-        <td width="25%">WPCRON_SSH_KEY_PATH</td>
+        <td width="25%">WPCRON_SSH_PRIVKEY</td>
         <td width="40%">your private rsa key path</td>
         <td width="35%">/wp-cron/ssh/id-rsa</td>
     </tr>
@@ -64,10 +64,10 @@ The running container accepts the following environmental variables for establis
     </tr>
 </table>
 
-## How to Setup
+## How to set it up
 
 ### Create a user for executing remote jobs
-> Here, remote can be the same host you are running the wp-cron service on or any other server.
+> Here, remote can be the same host on which you are running your wp-cron service, any other stand-alone servers or servers that are part of a kubernetes/swarm cluster.
 
 SSH into your docker host or any remote that wp-cron will administer
 
@@ -75,19 +75,19 @@ SSH into your docker host or any remote that wp-cron will administer
 $ ssh admin@docker-dev.example.com
 ```
 
-Create a new user with password as wpcron and accept the defaults
+Create a new user with password as wpcron or something else and accept the defaults
 
 ```
 $ sudo adduser wpcron
 ```
 
-Add user to the sudoers group
+Add the wpcron user to the sudoers group
 
 ```
-$ usermod -aG sudo wpcron
+$ sudo usermod -aG sudo wpcron
 ```
 
-Allow user to execute sudo commands without a prompt
+Allow the wpcron user to execute sudo commands without any prompt
 
 ```
 $ echo "wpcron ALL=(ALL) NOPASSWD:ALL" | sudo tee --append /etc/sudoers
@@ -116,13 +116,13 @@ $ exit
 >
 > For stage and production, SHS credentials should be generated and stored with CI and secret management tool, and copied over to the docker/remote host at deployment time.
 
-Add credentials folder to your project root to hold generated keys
+Create folder to hold generated ssh keys in your project root
 
 ```
 $ sudo mkdir -p ./etc/ssh
 ```
 
-Generate keys
+Generate ssh keys
 
 ```
 $ sudo ssh-keygen -t rsa -f ./etc/ssh/id-rsa -C wpcron
@@ -137,13 +137,13 @@ $ sudo mkdir -p /home/wpcron/.ssh
 $ sudo vim /home/wpcron/.ssh/authorized_keys
 ```
 
-Copy and paste the public keys you displayed via `cat` into the authorized_keys file
+Copy and paste the public keys you displayed using the `cat` command, into the authorized_keys file
 
 ```
 $ Ctrl + Shift + V
 ```
 
-Finally secure authorized_keys file
+Finally secure authorized_keys file on the remote host
 
 ```
 $ sudo chown -R wpcron:wpcron /home/wpcron/.ssh
@@ -151,7 +151,7 @@ $ sudo chmod 700 /home/wpcron/.ssh
 $ sudo chmod 600 /home/wpcron/.ssh/authorized_keys
 ```
 
-Exit docker/remote host
+Exit the ssh session on the remote host
 
 ```
 $ exit
@@ -161,24 +161,24 @@ Create a volume for your wp-cron service
 
 ```
 volumes:
-ssh-keys: # credentials volume
-  driver: local
-  driver_opts:
-    o: bind
-    type: none
-    device: ${PWD}/etc/ssh
+  ssh-keys: # credentials volume
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ${PWD}/etc/ssh
 ```
 
-Bind mount the volume inside the wp-cron service
+And mount the volume inside the wp-cron service
 
 ```
 volume:
-  type: bind
+  type: volume
   source: ssh-keys
   target: /wp-cron/ssh
 ```
 
-Example SSH connection that can be established by your wp-cron container to run jobs remotely or on the same docker host.
+Here is an example SSH connection that can be established by your wp-cron container to run admin jobs remotely or on the same docker host.
 
 ```
 ssh -i /wpcron/ssh/id-rsa \
@@ -194,7 +194,7 @@ version: '3.7'
 services:
 
   nginx: # web server
-    image: nginx
+    image: pam79/nginx
     container_name: nginx
     volumes:
       - type: volume
@@ -213,7 +213,7 @@ services:
     restart: on-failure
 
   php: # web app
-    image: php:7.4.1-fpm
+    image: pam79/php-fpm:v7.4.1
     container_name: php
     volumes:
       - type: volume
@@ -239,7 +239,7 @@ services:
         target: /var/log/cron
     environment:
       - WPCRON_SSH_HANDLE="wpcron@example.com"
-      - WPCRON_SSH_KEY_FILE="/wp-cron/ssh/id-rsa"
+      - WPCRON_SSH_PRIVKEY="/wp-cron/ssh/id-rsa"
       - WPCRON_DB_PORT="3306"
       - WPCRON_DB_HOST="mariadb.example.com"
       - WPCRON_DB_DATABASE="example-db-name"
