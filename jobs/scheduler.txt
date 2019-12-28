@@ -7,7 +7,7 @@ BASH_ENV=/wp-cron/jobs.env
 # cleanup after docker leftovers
 #* * * * * /wp-cron/jobs/scripts/cleanup.sh >> /var/log/cron/cleanup.log 2>&1
 
-# backup application data
+# backup application data to object store
 #* * * * * /wp-cron/jobs/scripts/wp-backup.sh >> /var/log/cron/wp-backup.log 2>&1
 
 # backup database to object store
