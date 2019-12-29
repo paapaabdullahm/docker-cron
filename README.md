@@ -118,7 +118,7 @@ Exit the current ssh session
 $ exit
 ```
 
-### Allow access to the docker/remote host via SSH
+### Allow wpcron user, access to the remote host via SSH
 
 > NB: Because the ssh keys are very sensitive security credentials, they should be separately created for each environment that the container is deployed to and bind mounted into the container during execution.
 >
