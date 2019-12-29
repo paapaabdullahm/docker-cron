@@ -120,7 +120,7 @@ $ exit
 
 ### Allow wpcron user, access to the remote host via SSH
 
-> NB: Because the ssh keys are very sensitive security credentials, they should be separately created for each environment that the container is deployed to and bind mounted into the container during execution.
+> NB: Because the ssh keys are very sensitive security credentials, they should be created separately for each environment the service is deployed and bind mounted into the container during execution via docker volumes.
 >
 > For dev environments, add the credentials folder directly within your project root at `./etc/ssh/`. Make sure the `./etc/ssh/` directory is ignored by git.
 >
