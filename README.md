@@ -162,8 +162,8 @@ $ sudo chmod 600 /home/wpcron/.ssh/authorized_keys
 ```
 
 Finally, disable ssh root access and ssh password authentication
-> It is very important that you execute this step to
-> prevent your server getting hacked via brute-force attack.
+> It is very important that you execute this final step to
+> prevent your server from getting hacked via brute-force attack.
 
 ```
 $ sudo sed -i '/^#PasswordAuthentication[ \t]\+\w\+$/{ \
