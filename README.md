@@ -153,7 +153,7 @@ Copy and paste the public keys you displayed using the `cat` command, into the a
 $ Ctrl + Shift + V
 ```
 
-Finally secure authorized_keys file on the remote host
+Secure authorized_keys file on the remote host
 
 ```
 $ sudo chown -R wpcron:wpcron /home/wpcron/.ssh
@@ -161,7 +161,17 @@ $ sudo chmod 700 /home/wpcron/.ssh
 $ sudo chmod 600 /home/wpcron/.ssh/authorized_keys
 ```
 
-Exit the ssh session on the remote host
+Finally, disable ssh root access and ssh password authentication
+> It is very important that you execute this step to
+> prevent your server getting hacked via brute-force attack.
+
+```
+$ sudo sed -i '/^#PasswordAuthentication[ \t]\+\w\+$/{ \
+  s//PasswordAuthentication no/g; \
+  }' /etc/ssh/sshd_config
+```
+
+Exit the remote ssh session
 
 ```
 $ exit
