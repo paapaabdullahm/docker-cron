@@ -18,59 +18,59 @@ The running container accepts the following environmental variables for establis
 
 <table width="100%">
     <tr>
-        <th width="25%">Variable</th>
-        <th width="40%">Description</th>
-        <th width="35%">Example</th>
+        <th width="33%">Variable</th>
+        <th width="34%">Description</th>
+        <th width="33%">Example</th>
     </tr>
     <tr>
-        <td width="25%">WPCRON_SSH_HANDLE</td>
-        <td width="40%">The SSH connection handle</td>
-        <td width="35%">wpcron@example.com</td>
+        <td width="33%">WPCRON_SSH_HANDLE</td>
+        <td width="34%">The SSH connection handle</td>
+        <td width="33%">wpcron@example.com</td>
     </tr>
     <tr>
-        <td width="25%">WPCRON_SSH_PRIVKEY</td>
-        <td width="40%">your private identity file</td>
-        <td width="35%">/wp-cron/ssh/id-rsa</td>
+        <td width="33%">WPCRON_SSH_PRIVKEY</td>
+        <td width="34%">your private identity file</td>
+        <td width="33%">/wp-cron/ssh/id-rsa</td>
     </tr>
     <tr>
-        <td width="25%">WPCRON_DB_PORT</td>
-        <td width="40%">Database Port</td>
-        <td width="35%">3306</td>
+        <td width="33%">WPCRON_DB_PORT</td>
+        <td width="34%">Database Port</td>
+        <td width="33%">3306</td>
     </tr>
     <tr>
-        <td width="25%">WPCRON_DB_HOST</td>
-        <td width="40%">Database Host</td>
-        <td width="35%">mariadb.example.com</td>
+        <td width="33%">WPCRON_DB_HOST</td>
+        <td width="34%">Database Host</td>
+        <td width="33%">mariadb.example.com</td>
     </tr>
     <tr>
-        <td width="25%">WPCRON_DB_DATABASE</td>
-        <td width="40%">Database Name</td>
-        <td width="35%">example-db-name</td>
+        <td width="33%">WPCRON_DB_DATABASE</td>
+        <td width="34%">Database Name</td>
+        <td width="33%">example-db-name</td>
     </tr>
     <tr>
-        <td width="25%">WPCRON_DB_USERNAME</td>
-        <td width="40%">Database User</td>
-        <td width="35%">example-db-user</td>
+        <td width="33%">WPCRON_DB_USERNAME</td>
+        <td width="34%">Database User</td>
+        <td width="33%">example-db-user</td>
     </tr>
     <tr>
-        <td width="25%">WPCRON_DB_PASSWORD</td>
-        <td width="40%">Database Password</td>
-        <td width="35%">example-db-secret</td>
+        <td width="33%">WPCRON_DB_PASSWORD</td>
+        <td width="34%">Database Password</td>
+        <td width="33%">example-db-secret</td>
     </tr>
     <tr>
-        <td width="25%">WPCRON_S3_ENDPOINT</td>
-        <td width="40%">S3 object store endpoint</td>
-        <td width="35%">http://example-endpoint:9000</td>
+        <td width="33%">WPCRON_S3_ENDPOINT</td>
+        <td width="34%">S3 object store endpoint</td>
+        <td width="33%">http://example-endpoint:9000</td>
     </tr>
     <tr>
-        <td width="25%">WPCRON_S3_ACCESS_KEY</td>
-        <td width="40%">S3 object store access key</td>
-        <td width="35%">21502C4E9A5F5A558F67</td>
+        <td width="33%">WPCRON_S3_ACCESS_KEY</td>
+        <td width="34%">S3 object store access key</td>
+        <td width="33%">21502C4E9A5F5A558F67</td>
     </tr>
     <tr>
-        <td width="25%">WPCRON_S3_SECRET_KEY</td>
-        <td width="40%">S3 object store secret key</td>
-        <td width="35%">gxYcG9zvzN3VH9EgW-MBLbKy3ut/9S-ZVq68hIbZVx</td>
+        <td width="33%">WPCRON_S3_SECRET_KEY</td>
+        <td width="34%">S3 object store secret key</td>
+        <td width="33%">gxYcG9zvzN3VH9EgW-MBLbKy3ut/9S-ZVq68hIbZVx</td>
     </tr>
 </table>
 
