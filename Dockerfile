@@ -33,9 +33,6 @@ RUN chmod +x -R \
     #
     # Smoke Test
     printenv; \
-    ssh -V; \
-    openssl version; \
-    vim --version | grep VIM; \
-    jq;
+    ssh -V;
 
 ENTRYPOINT ./entrypoint.sh
