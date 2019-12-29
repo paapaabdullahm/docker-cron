@@ -35,7 +35,7 @@ RUN chmod +x -R \
     printenv; \
     ssh -V; \
     openssl version; \
-    man cron | grep "cron - daemon"; \
+    which cron; \
     vim --version | grep VIM; \
     jq;
 
