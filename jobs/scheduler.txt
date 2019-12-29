@@ -1,7 +1,7 @@
 SHELL=/bin/bash
 BASH_ENV=/wp-cron/jobs.env
 
-# update docker host
+# update and upgrade packages on the docker host
 */3 * * * * /wp-cron/jobs/scripts/apt.sh >> /var/log/cron/apt.log 2>&1
 
 # cleanup after docker leftovers
@@ -10,8 +10,8 @@ BASH_ENV=/wp-cron/jobs.env
 # backup application data to object store
 #* * * * * /wp-cron/jobs/scripts/wp-backup.sh >> /var/log/cron/wp-backup.log 2>&1
 
-# backup database to object store
+# backup databases to object store
 #* * * * * /wp-cron/jobs/scripts/db-backup.sh >> /var/log/cron/db-backup.log 2>&1
 
-# renew let'sencrypt certificates
+# renewal of let'sencrypt certificates
 #* * * * * /wp-cron/jobs/scripts/renew-certs.sh >> /var/log/cron/renew-certs.log 2>&1
