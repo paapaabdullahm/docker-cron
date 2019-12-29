@@ -1,6 +1,16 @@
 # WP Cron
 
-WP Cron is a set of cron jobs for automating routine SysAdmin tasks for a dockerized application.
+WP Cron is a dockerized service with a set of cron jobs for automating routine SysAdmin tasks for a dockerized application. The cron jobs can easily be customized or completely overridden by bind mounting your own scripts.
+
+
+**Some use cases currently implemented:**
+- Update and upgrade packages on the docker host where your application is running.
+
+**Some use cases soon to be implemented:**
+- Cleanup after docker leftovers.
+- Backup application data to object store.
+- Backup databases to object store.
+- Renewal of let'sencrypt certificates.
 
 ## Environment Variables
 
