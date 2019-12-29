@@ -33,6 +33,11 @@ RUN chmod +x -R \
     #
     # Smoke Test
     printenv; \
-    ssh -V;
+    ssh -V; \
+    echo "=====================================================================" \
+    echo "/wp-cron/jobs.env" \
+    echo "====================================================================="; \
+    declare -p | grep -Ev 'BASHOPTS|BASH_VERSINFO|EUID|PPID|SHELLOPTS|UID' > /wp-cron/jobs.env; \
+    cat /wp-cron/jobs.env;
 
 ENTRYPOINT ./entrypoint.sh
