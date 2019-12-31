@@ -10,4 +10,4 @@ VAR1=''
 VAR2=''
 
 ssh -i ${SSH_PRIVKEY} -o ${SSH_CHALLENGE} ${SSH_HANDLE} \
-var1=${VAR1} var2=${VAR2} 'bash -s' < ../helpers/apt_update
+var1=${VAR1} var2=${VAR2} 'bash -s' < /wp-cron/jobs/helpers/apt_update

@@ -2,7 +2,7 @@ SHELL=/bin/bash
 BASH_ENV=/wp-cron/jobs.env
 
 # update and upgrade packages on the docker host
-*/3 * * * * /wp-cron/jobs/scripts/apt.sh >> /var/log/cron/apt.log 2>&1
+*/15 * * * * /wp-cron/jobs/scripts/apt.sh >> /var/log/cron/apt.log 2>&1
 
 # cleanup after docker leftovers
 #* * * * * /wp-cron/jobs/scripts/cleanup.sh >> /var/log/cron/cleanup.log 2>&1
