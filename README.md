@@ -124,7 +124,7 @@ $ exit
 >
 > For dev environments, add the credentials folder directly within your project root at `./etc/ssh/`. Make sure the `./etc/ssh/` directory is ignored by git.
 >
-> For stage and production, SHS credentials should be generated and stored with CI and secret management tool, and copied over to the docker/remote host at deployment time.
+> For stage and production, SSH credentials should be generated and stored with CI and secret management tools, and copied over to the remote host at deployment time.
 
 Create folder to hold generated ssh keys in your project root
 
