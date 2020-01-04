@@ -10,18 +10,18 @@ RUN apt update && apt upgrade && apt install -y \
     jq;
 
 # Setup environment variables to be used by containers
-ENV WPCRON_SSH_HANDLE="" \
-    WPCRON_SSH_PRIVKEY="" \
-    WPCRON_DB_PORT="" \
-    WPCRON_DB_HOST="" \
-    WPCRON_DB_DATABASE="" \
-    WPCRON_DB_USERNAME="" \
-    WPCRON_DB_PASSWORD="" \
-    WPCRON_S3_ENDPOINT="" \
-    WPCRON_S3_ACCESS_KEY="" \
-    WPCRON_S3_SECRET_KEY=""
+ENV DOCKER_CRON_SSH_HANDLE="" \
+    DOCKER_CRON_SSH_PRIVKEY="" \
+    DOCKER_CRON_DB_PORT="" \
+    DOCKER_CRON_DB_HOST="" \
+    DOCKER_CRON_DB_DATABASE="" \
+    DOCKER_CRON_DB_USERNAME="" \
+    DOCKER_CRON_DB_PASSWORD="" \
+    DOCKER_CRON_S3_ENDPOINT="" \
+    DOCKER_CRON_S3_ACCESS_KEY="" \
+    DOCKER_CRON_S3_SECRET_KEY=""
 
-WORKDIR /wp-cron
+WORKDIR /docker-cron
 
 COPY ./jobs ./jobs
 ADD ./entrypoint.sh ./entrypoint.sh
@@ -30,6 +30,9 @@ RUN chmod +x -R \
     ./jobs/helpers \
     ./jobs/scripts \
     ./entrypoint.sh; \
+    #
+    # Make ssh directory
+    mkdir -p ./ssh; \
     #
     # Smoke Test
     ssh -V; \

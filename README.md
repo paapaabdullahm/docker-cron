@@ -1,12 +1,12 @@
-# WP Cron
+# Docker Cron
 
-WP Cron is a dockerized service with a set of cron jobs for automating routine SysAdmin tasks for a dockerized application. The cron jobs can easily be customized or completely overridden by bind mounting your own scripts.
+Docker Cron is a dockerized service with a set of cron jobs for automating routine SysAdmin tasks for a dockerized application. The cron jobs can easily be customized or completely overridden by bind mounting your own scripts.
 
 
 Some use cases currently implemented:
 - Update and upgrade packages on the docker host where your application is running.
 
-Some use cases soon to be implemented:
+Other use cases soon to be implemented:
 - Cleanup after docker leftovers.
 - Backup application data to object store.
 - Backup databases to object store.
@@ -18,95 +18,95 @@ The running container accepts the following environmental variables for establis
 
 <table width="100%">
     <tr>
-        <th width="33%">Variable</th>
-        <th width="34%">Description</th>
-        <th width="33%">Example</th>
+        <th>Env Variable</th>
+        <th>Description</th>
+        <th>Example</th>
     </tr>
     <tr>
-        <td width="33%">WPCRON_SSH_HANDLE</td>
-        <td width="34%">The SSH connection handle</td>
-        <td width="33%">wpcron@example.com</td>
+        <td>DOCKER_CRON_SSH_HANDLE</td>
+        <td>The SSH connection handle</td>
+        <td>docker-cron@example.com</td>
     </tr>
     <tr>
-        <td width="33%">WPCRON_SSH_PRIVKEY</td>
-        <td width="34%">your private identity file</td>
-        <td width="33%">/wp-cron/ssh/id-rsa</td>
+        <td>DOCKER_CRON_SSH_PRIVKEY</td>
+        <td>your private identity file</td>
+        <td>/docker-cron/ssh/id-rsa</td>
     </tr>
     <tr>
-        <td width="33%">WPCRON_DB_PORT</td>
-        <td width="34%">Database Port</td>
-        <td width="33%">3306</td>
+        <td>DOCKER_CRON_DB_PORT</td>
+        <td>Database Port</td>
+        <td>3306</td>
     </tr>
     <tr>
-        <td width="33%">WPCRON_DB_HOST</td>
-        <td width="34%">Database Host</td>
-        <td width="33%">mariadb.example.com</td>
+        <td>DOCKER_CRON_DB_HOST</td>
+        <td>Database Host</td>
+        <td>mariadb.example.com</td>
     </tr>
     <tr>
-        <td width="33%">WPCRON_DB_DATABASE</td>
-        <td width="34%">Database Name</td>
-        <td width="33%">example-db-name</td>
+        <td>DOCKER_CRON_DB_DATABASE</td>
+        <td>Database Name</td>
+        <td>example-db-name</td>
     </tr>
     <tr>
-        <td width="33%">WPCRON_DB_USERNAME</td>
-        <td width="34%">Database User</td>
-        <td width="33%">example-db-user</td>
+        <td>DOCKER_CRON_DB_USERNAME</td>
+        <td>Database User</td>
+        <td>example-db-user</td>
     </tr>
     <tr>
-        <td width="33%">WPCRON_DB_PASSWORD</td>
-        <td width="34%">Database Password</td>
-        <td width="33%">example-db-secret</td>
+        <td>DOCKER_CRON_DB_PASSWORD</td>
+        <td>Database Password</td>
+        <td>example-db-secret</td>
     </tr>
     <tr>
-        <td width="33%">WPCRON_S3_ENDPOINT</td>
-        <td width="34%">S3 object store endpoint</td>
-        <td width="33%">http://example-endpoint:9000</td>
+        <td>DOCKER_CRON_S3_ENDPOINT</td>
+        <td>S3 object store endpoint</td>
+        <td>http://example-endpoint:9000</td>
     </tr>
     <tr>
-        <td width="33%">WPCRON_S3_ACCESS_KEY</td>
-        <td width="34%">S3 object store access key</td>
-        <td width="33%">21502C4E9A5F5A558F67</td>
+        <td>DOCKER_CRON_S3_ACCESS_KEY</td>
+        <td>S3 object store access key</td>
+        <td>21502C4E9A5F5A558F67</td>
     </tr>
     <tr>
-        <td width="33%">WPCRON_S3_SECRET_KEY</td>
-        <td width="34%">S3 object store secret key</td>
-        <td width="33%">gxYcG9zvzN3VH9EgW-MBLbKy3ut/9S-ZVq68hIbZVx</td>
+        <td>DOCKER_CRON_S3_SECRET_KEY</td>
+        <td>S3 object store secret key</td>
+        <td>gxYcG9zvzN3VH9EgW-MBLbKy3ut/9S-ZVq68hIbZVx</td>
     </tr>
 </table>
 
 ## How to set it up
 
 ### Create a user for executing remote jobs
-> Here, remote can be the same host on which you are running your wp-cron service, any other stand-alone servers or servers that are part of a kubernetes/swarm cluster.
+> Here, remote can be the same host on which you are running your docker-cron service, any other stand-alone servers or servers that are part of a kubernetes/swarm cluster.
 
-SSH into your docker host or any remote that wp-cron will administer
-
-```
-$ ssh admin@docker-dev.example.com
-```
-
-Create a new user with password as wpcron or something else and accept the defaults
+SSH into your docker host or any remote that docker-cron will administer
 
 ```
-$ sudo adduser wpcron
+$ ssh pam79@docker-dev.example.com
 ```
 
-Add the wpcron user to the sudoers group
+Create a new user with password as docker-cron or something else and accept the defaults
 
 ```
-$ sudo usermod -aG sudo wpcron
+$ sudo adduser docker-cron
 ```
 
-Allow the wpcron user to execute sudo commands without any prompt
+Add the docker-cron user to the sudoers group
 
 ```
-$ echo "wpcron ALL=(ALL) NOPASSWD:ALL" | sudo tee --append /etc/sudoers
+$ sudo usermod -aG sudo docker-cron
+```
+
+Allow the docker-cron user to execute sudo commands without any prompt
+
+```
+$ echo "docker-cron ALL=(ALL) NOPASSWD:ALL" | sudo tee --append /etc/sudoers
 ```
 
 Run a smoke test
 
 ```
-$ su - wpcron
+$ su - docker-cron
 $ sudo ls -la /root
 $ exit
 $ exit
@@ -118,7 +118,7 @@ Exit the current ssh session
 $ exit
 ```
 
-### Allow wpcron user, access to the remote host via SSH
+### Allow docker-cron user, access to the remote host via SSH
 
 > NB: Because the ssh keys are very sensitive security credentials, they should be created separately for each environment the service is deployed and bind mounted into the container during execution via docker volumes.
 >
@@ -135,16 +135,16 @@ $ sudo mkdir -p ./etc/ssh
 Generate ssh keys
 
 ```
-$ sudo ssh-keygen -t rsa -f ./etc/ssh/id-rsa -C wpcron
+$ sudo ssh-keygen -t rsa -f ./etc/ssh/id-rsa -C docker-cron
 ```
 
 Add public ssh key to the docker/remote host
 
 ```
 $ cat ./etc/ssh/id-rsa.pub
-$ ssh admin@docker-dev.example.com
-$ sudo mkdir -p /home/wpcron/.ssh
-$ sudo vim /home/wpcron/.ssh/authorized_keys
+$ ssh pam79@docker-dev.example.com
+$ sudo mkdir -p /home/docker-cron/.ssh
+$ sudo vim /home/docker-cron/.ssh/authorized_keys
 ```
 
 Copy and paste the public keys you displayed using the `cat` command, into the authorized_keys file
@@ -156,9 +156,9 @@ $ Ctrl + Shift + V
 Secure authorized_keys file on the remote host
 
 ```
-$ sudo chown -R wpcron:wpcron /home/wpcron/.ssh
-$ sudo chmod 700 /home/wpcron/.ssh
-$ sudo chmod 600 /home/wpcron/.ssh/authorized_keys
+$ sudo chown -R docker-cron:docker-cron /home/docker-cron/.ssh
+$ sudo chmod 700 /home/docker-cron/.ssh
+$ sudo chmod 600 /home/docker-cron/.ssh/authorized_keys
 ```
 
 Finally, disable ssh root access and ssh password authentication
@@ -177,7 +177,7 @@ Exit the remote ssh session
 $ exit
 ```
 
-Create a volume for your wp-cron service
+Create a volume for your docker-cron service
 
 ```
 volumes:
@@ -186,24 +186,24 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: ${PWD}/etc/ssh
+      device: ${APP_PWD}/etc/ssh
 ```
 
-And mount the volume inside the wp-cron service
+And mount the volume inside the docker-cron service
 
 ```
 volume:
   type: volume
   source: ssh-keys
-  target: /wp-cron/ssh
+  target: /docker-cron/ssh
 ```
 
-Here is an example SSH connection that can be established by your wp-cron container to run admin jobs remotely or on the same docker host.
+Here is an example SSH connection that can be established by your docker-cron container to run admin jobs remotely or on the same docker host.
 
 ```
-ssh -i /wpcron/ssh/id-rsa \
+ssh -i /docker-cron/ssh/id-rsa \
     -o StrictHostKeyChecking=accept-new \
-    wpcron@docker-dev.example.com
+    docker-cron@docker-dev.example.com
 ```
 
 ## Docker Compose Example
@@ -244,12 +244,12 @@ services:
         target: /usr/local/etc/php/conf.d/custom.ini
     networks:
       - app-tier
-      - admin-tier
+      - cron-tier
     restart: on-failure
 
-  wp-cron: # service for running admin jobs
-    image: pam79/wp-cron:v1.0.0
-    container_name: wp-cron
+  docker-cron: # service for running admin jobs
+    image: pam79/docker-cron:v1.0.0
+    container_name: docker-cron
     volumes:
       - type: volume
         source: src-code
@@ -258,18 +258,18 @@ services:
         source: cron-logs
         target: /var/log/cron
     environment:
-      - WPCRON_SSH_HANDLE="wpcron@example.com"
-      - WPCRON_SSH_PRIVKEY="/wp-cron/ssh/id-rsa"
-      - WPCRON_DB_PORT="3306"
-      - WPCRON_DB_HOST="mariadb.example.com"
-      - WPCRON_DB_DATABASE="example-db-name"
-      - WPCRON_DB_USERNAME="example-db-use"
-      - WPCRON_DB_PASSWORD="example-db-secret"
-      - WPCRON_S3_ENDPOINT="http://example-endpoint:9000"
-      - WPCRON_S3_ACCESS_KEY="21502C4E9A5F5A558F67"
-      - WPCRON_S3_SECRET_KEY="gxYcG9zvzN3VH9EgW-MBLbKy3ut/9S-ZVq68hIbZVx"
+      - DOCKER_CRON_SSH_HANDLE="docker-cron@example.com"
+      - DOCKER_CRON_SSH_PRIVKEY="/docker-cron/ssh/id-rsa"
+      - DOCKER_CRON_DB_PORT="3306"
+      - DOCKER_CRON_DB_HOST="mariadb.example.com"
+      - DOCKER_CRON_DB_DATABASE="example-db-name"
+      - DOCKER_CRON_DB_USERNAME="example-db-use"
+      - DOCKER_CRON_DB_PASSWORD="example-db-secret"
+      - DOCKER_CRON_S3_ENDPOINT="http://example-endpoint:9000"
+      - DOCKER_CRON_S3_ACCESS_KEY="21502C4E9A5F5A558F67"
+      - DOCKER_CRON_S3_SECRET_KEY="gxYcG9zvzN3VH9EgW-MBLbKy3ut/9S-ZVq68hIbZVx"
     networks:
-      - admin-tier
+      - cron-tier
     restart: on-failure
 
 volumes:
@@ -278,7 +278,7 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: ${PWD}
+      device: ${APP_PWD}
 
   cron-logs:
     driver: local
@@ -287,7 +287,7 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: ${PWD}/etc/ssh
+      device: ${APP_PWD}/etc/ssh
 
 networks:
 
@@ -297,6 +297,6 @@ networks:
   app-tier:
       driver: bridge
 
-  admin-tier:
+  cron-tier:
       driver: bridge
 ```

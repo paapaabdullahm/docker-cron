@@ -1,17 +1,17 @@
 SHELL=/bin/bash
-BASH_ENV=/wp-cron/jobs.env
+BASH_ENV=/docker-cron/jobs.env
 
 # update and upgrade packages on the docker host
-*/15 * * * * /wp-cron/jobs/scripts/apt.sh >> /var/log/cron/apt.log 2>&1
+#*/59 * * * * /docker-cron/jobs/main/apt.sh >> /var/log/cron/apt.log 2>&1
 
 # cleanup after docker leftovers
-#* * * * * /wp-cron/jobs/scripts/cleanup.sh >> /var/log/cron/cleanup.log 2>&1
+#* * * * * /docker-cron/jobs/main/cleanup.sh >> /var/log/cron/cleanup.log 2>&1
 
 # backup application data to object store
-#* * * * * /wp-cron/jobs/scripts/wp-backup.sh >> /var/log/cron/wp-backup.log 2>&1
+#* * * * * /docker-cron/jobs/main/app-backup.sh >> /var/log/cron/app-backup.log 2>&1
 
 # backup databases to object store
-#* * * * * /wp-cron/jobs/scripts/db-backup.sh >> /var/log/cron/db-backup.log 2>&1
+#* * * * * /docker-cron/jobs/main/db-backup.sh >> /var/log/cron/db-backup.log 2>&1
 
 # renewal of let'sencrypt certificates
-#* * * * * /wp-cron/jobs/scripts/renew-certs.sh >> /var/log/cron/renew-certs.log 2>&1
+#* * * * * /docker-cron/jobs/main/renew-certs.sh >> /var/log/cron/renew-certs.log 2>&1
